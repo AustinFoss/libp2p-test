@@ -26,8 +26,8 @@ use serde::{Deserialize, Serialize};
 #[derive(NetworkBehaviour)]
 struct Behaviour {
     // relay: relay::Behaviour,
-    // ping: ping::Behaviour,
-    // identify: identify::Behaviour,
+    ping: ping::Behaviour,
+    identify: identify::Behaviour,
     reqres: RequestResponseBehaviour<Ping, Pong>
 }
 
@@ -62,11 +62,11 @@ pub async fn init_libp2p(_local_key: Keypair, _webrtc_cert: webrtc::tokio::certi
     .with_behaviour(|key| Behaviour {
         // relay: relay::Behaviour::new(key.public().to_peer_id(),
         //     Default::default()),
-        // ping: ping::Behaviour::new(ping::Config::new()),
-        // identify: identify::Behaviour::new(identify::Config::new(
-        //     "/ipfs/id/1.0.0".to_string(),
-        //     key.public(),
-        // )),
+        ping: ping::Behaviour::new(ping::Config::new()),
+        identify: identify::Behaviour::new(identify::Config::new(
+            "/ipfs/id/1.0.0".to_string(),
+            key.public(),
+        )),
         reqres: reqres
     })?
     .build();
@@ -90,26 +90,6 @@ pub async fn init_libp2p(_local_key: Keypair, _webrtc_cert: webrtc::tokio::certi
 
     loop {
 
-        // match swarm.next().await.expect("REASON").try_into_behaviour_event() {
-        //     Ok(Event::Message {
-        //         peer,
-        //         message:
-        //             Request {
-        //                 request, channel, ..
-        //             },
-        //         ..
-        //     }) => {
-        //         println!("Requested!");
-        //     }
-        //     Ok(Event::ResponseSent { peer, .. }) => {
-        //         println!("Responded");
-        //     }
-        //     Ok(e) => {
-        //         panic!("Peer1: Unexpected event: {e:?}")
-        //     }
-        //     Err(..) => {}
-        // }
-
         match swarm.next().await.expect("Infinite Stream.") {
 
             SwarmEvent::IncomingConnection { local_addr, send_back_addr, connection_id } => {
@@ -130,53 +110,6 @@ pub async fn init_libp2p(_local_key: Keypair, _webrtc_cert: webrtc::tokio::certi
                 println!("Received Request");
             }
 
-            // Event::Message {
-            //     peer,
-            //     message:
-            //         request_response::Message::Request {
-            //             request, channel, ..
-            //         },
-            //     ..
-            // } => { }
-
-            // SwarmEvent::Behaviour(BehaviourEvent::Reqres(Event::Message {
-            //     peer,
-            //     message,
-            //     ..
-            // })) => {
-            //     match message {
-            //         Message::Request {
-            //             request,
-            //             channel,
-            //             request_id,
-            //             ..
-            //         } => {
-            //             // println!(
-            //             //     "Received Request from {} with request_id {:?}: {:?}",
-            //             //     peer, request_id, request
-            //             // );
-
-            //             println!("PRP HTTP!!!");
-            //             // Optionally, send a response back using the channel
-            //             // For example:
-            //             // swarm
-            //             //     .behaviour_mut()
-            //             //     .reqres
-            //             //     .send_response(channel, Pong(request.0))
-            //             //     .expect("Failed to send response");
-            //         }
-            //         Message::Response {
-            //             response,
-            //             request_id,
-            //         } => {
-            //             println!(
-            //                 "Received Response from {} with request_id {:?}: {:?}",
-            //                 peer, request_id, response
-            //             );
-            //         }
-            //     }
-            // }
-
             SwarmEvent::ConnectionEstablished {
                 peer_id, endpoint, ..
             } => {
@@ -184,14 +117,14 @@ pub async fn init_libp2p(_local_key: Keypair, _webrtc_cert: webrtc::tokio::certi
             }
 
             SwarmEvent::Behaviour(event) => {
-                // if let BehaviourEvent::Identify(identify::Event::Received {
-                //     info: identify::Info { observed_addr, .. },
-                //     ..
-                // }) = &event
-                // {
-                //     // swarm.add_external_address(observed_addr.clone());
-                //     println!("IDENTIFIED!!!!");
-                // }
+                if let BehaviourEvent::Identify(identify::Event::Received {
+                    info: identify::Info { observed_addr, .. },
+                    ..
+                }) = &event
+                {
+                    // swarm.add_external_address(observed_addr.clone());
+                    println!("IDENTIFIED!!!!");
+                }
 
                 if let BehaviourEvent::Reqres(Event::Message {
                     ..
