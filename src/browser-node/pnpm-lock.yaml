@@ -20,6 +20,9 @@ dependencies:
   '@libp2p/mplex':
     specifier: ^11.0.32
     version: 11.0.32
+  '@libp2p/peer-id':
+    specifier: ^5.1.2
+    version: 5.1.2
   '@libp2p/ping':
     specifier: ^2.0.28
     version: 2.0.28
@@ -475,7 +478,7 @@ packages:
       '@chainsafe/as-sha256': 1.0.1
       '@libp2p/crypto': 5.0.15
       '@libp2p/interface': 2.7.0
-      '@libp2p/peer-id': 5.1.0
+      '@libp2p/peer-id': 5.1.2
       '@noble/ciphers': 1.2.1
       '@noble/curves': 1.8.1
       '@noble/hashes': 1.7.1
@@ -1086,13 +1089,25 @@ packages:
       uint8arrays: 5.1.0
     dev: false
 
+  /@libp2p/crypto@5.1.1:
+    resolution: {integrity: sha512-feByJ5ypBfl7Dp+jLBmieHDY/249hqCiDn8u6DNSZrpDhefn2l/NE03fS2mW6pLOnY3QIqB372TfLtx3/EPU+w==}
+    dependencies:
+      '@libp2p/interface': 2.9.0
+      '@noble/curves': 1.8.1
+      '@noble/hashes': 1.7.1
+      multiformats: 13.3.2
+      protons-runtime: 5.5.0
+      uint8arraylist: 2.4.8
+      uint8arrays: 5.1.0
+    dev: false
+
   /@libp2p/identify@3.0.28:
     resolution: {integrity: sha512-cD+cZAEqfoqGa25t9HfEjjSz/G/DVHpxF0C4dd8qC7bOuQl2ylSub5fqppbZGgHbolJ2nolTDG+8r3Vqh18Nhw==}
     dependencies:
       '@libp2p/crypto': 5.1.0
       '@libp2p/interface': 2.8.0
       '@libp2p/interface-internal': 2.3.10
-      '@libp2p/peer-id': 5.1.1
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/peer-record': 8.0.26
       '@libp2p/utils': 6.6.1
       '@multiformats/multiaddr': 12.4.0
@@ -1136,6 +1151,17 @@ packages:
 
   /@libp2p/interface@2.8.0:
     resolution: {integrity: sha512-QnIjqqUv2aDiBho6OGcNNhLT3Ac4RKrh41qoQmqG6csMRkUUx/xZMkfFJx3j0wGCIP8GS4sGspkTt4wCpPbSWw==}
+    dependencies:
+      '@multiformats/multiaddr': 12.4.0
+      it-pushable: 3.2.3
+      it-stream-types: 2.0.2
+      multiformats: 13.3.2
+      progress-events: 1.0.1
+      uint8arraylist: 2.4.8
+    dev: false
+
+  /@libp2p/interface@2.9.0:
+    resolution: {integrity: sha512-L/0Z5H0mjaECA0jkZG+OJmEhB/OIJ07gzZYljU7C19XjL3dSkBvhA9il+G3FpHyHgqAOVGuQU5qkbv2Edj8FIA==}
     dependencies:
       '@multiformats/multiaddr': 12.4.0
       it-pushable: 3.2.3
@@ -1210,7 +1236,7 @@ packages:
     resolution: {integrity: sha512-sU6mjwANQvVPgTgslRZvxZ6cYzQJ66QmNHm6mrM0cx03Yf1heWnvL28N/P781nGsUjo1cJD7xB5ctAGk6A/lXw==}
     dependencies:
       '@libp2p/interface': 2.7.0
-      '@libp2p/peer-id': 5.1.0
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/utils': 6.6.0
       multiformats: 13.3.2
     dev: false
@@ -1219,25 +1245,16 @@ packages:
     resolution: {integrity: sha512-bpo4Oim+pvZh6AiIPjYDVb2Us6siJnRBWmyEzrV5t+EmGdLUjOKmRD3NnBp2WoO3RYAMESDyBrpxjnZo5ydHCA==}
     dependencies:
       '@libp2p/interface': 2.8.0
-      '@libp2p/peer-id': 5.1.1
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/utils': 6.6.1
       multiformats: 13.3.2
     dev: false
 
-  /@libp2p/peer-id@5.1.0:
-    resolution: {integrity: sha512-9Xob9DDg1uBboM2QvJ5nyPbsjxsNS9obmGAYeAtLSx5aHAIC4AweJQFHssUUCfW7mufkzX/s3zyR62XPR4SYyQ==}
+  /@libp2p/peer-id@5.1.2:
+    resolution: {integrity: sha512-K4tjLi+OIHJSeMMqw28xnBxDfklfWCsR423Jm6GxZ5avIj2xm7WIq5oUhCntGGDIQWW/8qdf8v3tYK36JxwLOA==}
     dependencies:
-      '@libp2p/crypto': 5.0.15
-      '@libp2p/interface': 2.7.0
-      multiformats: 13.3.2
-      uint8arrays: 5.1.0
-    dev: false
-
-  /@libp2p/peer-id@5.1.1:
-    resolution: {integrity: sha512-dVpgln2gWybglCC8hiQqyGlyXU7F7ovoOqwnnMs8HxurGEH9QxgmCfxRP4p8s86bQwl1MFbyj0AqYPy/zbKLrA==}
-    dependencies:
-      '@libp2p/crypto': 5.1.0
-      '@libp2p/interface': 2.8.0
+      '@libp2p/crypto': 5.1.1
+      '@libp2p/interface': 2.9.0
       multiformats: 13.3.2
       uint8arrays: 5.1.0
     dev: false
@@ -1247,7 +1264,7 @@ packages:
     dependencies:
       '@libp2p/crypto': 5.0.15
       '@libp2p/interface': 2.7.0
-      '@libp2p/peer-id': 5.1.0
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/utils': 6.6.0
       '@multiformats/multiaddr': 12.4.0
       multiformats: 13.3.2
@@ -1262,7 +1279,7 @@ packages:
     dependencies:
       '@libp2p/crypto': 5.1.0
       '@libp2p/interface': 2.8.0
-      '@libp2p/peer-id': 5.1.1
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/utils': 6.6.1
       '@multiformats/multiaddr': 12.4.0
       multiformats: 13.3.2
@@ -1277,7 +1294,7 @@ packages:
     dependencies:
       '@libp2p/crypto': 5.0.15
       '@libp2p/interface': 2.7.0
-      '@libp2p/peer-id': 5.1.0
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/peer-record': 8.0.25
       '@multiformats/multiaddr': 12.4.0
       interface-datastore: 8.3.1
@@ -1362,7 +1379,7 @@ packages:
       '@libp2p/interface': 2.8.0
       '@libp2p/interface-internal': 2.3.10
       '@libp2p/keychain': 5.2.0
-      '@libp2p/peer-id': 5.1.1
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/utils': 6.6.1
       '@multiformats/multiaddr': 12.4.0
       '@multiformats/multiaddr-matcher': 1.7.0
@@ -1398,7 +1415,7 @@ packages:
     dependencies:
       '@chainsafe/libp2p-noise': 16.1.0
       '@libp2p/interface': 2.7.0
-      '@libp2p/peer-id': 5.1.0
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/utils': 6.6.0
       '@multiformats/multiaddr': 12.4.0
       '@multiformats/multiaddr-matcher': 1.7.0
@@ -3813,7 +3830,7 @@ packages:
       '@libp2p/logger': 5.1.13
       '@libp2p/multistream-select': 6.0.20
       '@libp2p/peer-collections': 6.0.25
-      '@libp2p/peer-id': 5.1.0
+      '@libp2p/peer-id': 5.1.2
       '@libp2p/peer-store': 11.1.2
       '@libp2p/utils': 6.6.0
       '@multiformats/dns': 1.0.6

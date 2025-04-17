@@ -31,7 +31,7 @@ struct Behaviour {
 
 pub async fn init_libp2p(_local_key: Keypair, _webrtc_cert: webrtc::tokio::certificate::Certificate, _port: u16) -> Result<(), Box<dyn Error>> {
 
-    let reqres_proto = [(StreamProtocol::new("/reqres"), ProtocolSupport::Full)];
+    let reqres_proto = [(StreamProtocol::new("/reqres/0.0.1"), ProtocolSupport::Full)];
     println!("reqres registering protocols: {:?}", reqres_proto.iter().map(|(p, _)| p).collect::<Vec<_>>());
 
     let reqres = RequestResponseBehaviour::<Ping, Pong>::new(
