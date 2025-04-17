@@ -44,7 +44,9 @@ You can then click the `Dial Remote Custom Proto` button from the UI and should 
 
 ## WIP
 
-Unfortunately what happens right now is the `ping` and `identify` protocols are working as there will be 3 `BehaviourEvent`'s outputed from the rust node. `Ping` shows the milliseconds for the ping upon receiving the connection from the browser, and `Identify` shows a bunch of information including the `/reqres/0.0.1` custom protocol being registered. But the 3rd `BehaviourEvent` is just a blank event and isn't recognized by the custom protocol ID, per lines 170-174 or 97-105 of `/src/utils/libp2p.rs`.
+Unfortunately what happens right now is the `ping` and `identify` protocols are working as there will be 3 `BehaviourEvent`'s outputed from the rust node. `Ping` shows the milliseconds for the ping upon receiving the connection from the browser, and `Identify` shows a bunch of information including the `/reqres/0.0.1` custom protocol being registered, as well as a response from that protocol.
+
+When I only use the `reqres` protocol there's no beheviour events that are registered. Which is really strange because the comiler throws an error when I adjust "Reqres" in the lines that contain `SwarmEvent::Behaviour(BehaviourEvent::Reqres(...` showing that the protocol is being processed as part of the larger behaviour enum, but maybe the events actually being emitted by the `reqres` behaviour aren't actually of the type `SwarmEvent::Behaviour`? Maybe?
 
 In the browser node it reports the rust node's peer info from the peer store and also shows the `/reqres/0.0.1` protocol as registered, the message trying to be delivered, and then an error `Stream Err: The operation was aborted`. This error is fired before the rust node reports that the connection is closed after a few seconds.
 

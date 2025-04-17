@@ -7,7 +7,7 @@ edition = "2024"
 clap = { version = "4.5.35", features = ["derive"] }
 futures = "0.3.31"
 libp2p = { version = "0.55.0", features = ["tokio", "noise", "macros", "ping", "tcp", "identify", "yamux", "relay", "quic"] }
-libp2p-request-response = {version = "0.28.0", features = ["cbor"]}
+libp2p-request-response = {version = "0.28.0", features = ["cbor", "json"]}
 libp2p-webrtc = { version = "0.9.0-alpha", features = ["tokio", "pem"] }
 openssl = "0.10.72"
 rand = "0.8"

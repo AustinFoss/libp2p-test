@@ -66,11 +66,11 @@ export default () => {
             //                 'Host: ' + targetHost + '\r\n' +
             //                 'Connection: close\r\n' +
             //                 '\r\n';
-            const requestStr = 'Message'
+            const requestStr = { message: 'Message'}
 
             console.log("Raw request string\n", requestStr)
             
-            const request = new TextEncoder().encode(requestStr);
+            const request = new TextEncoder().encode(JSON.stringify(requestStr));
             // const request = cbor.encode(requestStr)
 
             // Write the request to the stream
@@ -82,10 +82,9 @@ export default () => {
             await lp.write(request)
         
             // Read the response
-            let response = '';
-            for await (const chunk of stream.source) {
-                response += new TextDecoder().decode(chunk.subarray());
-            }
+            const res = await lp.read()
+            const output = JSON.parse(new TextDecoder().decode(res.subarray()))
+            
         
             console.log(`Response from ${targetHost}:`, response);    
 
