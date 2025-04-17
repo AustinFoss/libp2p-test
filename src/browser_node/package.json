@@ -21,6 +21,7 @@
     "@multiformats/multiaddr": "^12.4.0",
     "astro": "^5.5.6",
     "cborg": "^4.2.10",
+    "it-length-prefixed-stream": "^2.0.1",
     "libp2p": "^2.8.2",
     "solid-js": "^1.9.5"
   }

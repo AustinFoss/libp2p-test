@@ -9,6 +9,8 @@ import { identify } from '@libp2p/identify'
 import { ping } from '@libp2p/ping';
 import * as cbor from 'cborg';
 
+import { lpStream } from 'it-length-prefixed-stream'
+
 import { createSignal } from 'solid-js';
 
 let node = await createLibp2p({
@@ -41,12 +43,8 @@ node.handle(P2PHTTPProtocol, ({ stream }) => {
 
 export default () => {
 
-    const [getMultiaddr, setMultiAddr] = createSignal('');
-    const [getRemotePeerId, setRemotePeerId] = createSignal('');
-
-    const serverAddrStr ='/ip4/192.168.122.1/udp/37385/webrtc-direct/certhash/uEiC-d6DrX5z5xu17eJQ715RsQvvphwA0TSvBEAeWXZBKlQ/p2p/12D3KooWJP2jGS3mi4VhutFBFc1NUjyZBhwiEk8eFHJD9vwocKbh'
-
-    // const serverAddr = multiaddr(serverAddrStr);
+    const [getMultiaddr, setMultiAddr] = createSignal('/ip4/10.0.0.167/udp/37385/webrtc-direct/certhash/uEiC-d6DrX5z5xu17eJQ715RsQvvphwA0TSvBEAeWXZBKlQ');
+    const [getRemotePeerId, setRemotePeerId] = createSignal('12D3KooWJP2jGS3mi4VhutFBFc1NUjyZBhwiEk8eFHJD9vwocKbh');
 
     const dial_go_node = async (targetHost) => {
 
@@ -64,10 +62,11 @@ export default () => {
         
             // Construct an HTTP GET request
             // Construct and log the exact request string
-            const requestStr = 'GET /hello HTTP/1.1\r\n' +
-                            'Host: ' + targetHost + '\r\n' +
-                            'Connection: close\r\n' +
-                            '\r\n';
+            // const requestStr = 'GET /hello HTTP/1.1\r\n' +
+            //                 'Host: ' + targetHost + '\r\n' +
+            //                 'Connection: close\r\n' +
+            //                 '\r\n';
+            const requestStr = 'Message'
 
             console.log("Raw request string\n", requestStr)
             
@@ -75,7 +74,12 @@ export default () => {
             // const request = cbor.encode(requestStr)
 
             // Write the request to the stream
-            await stream.sink([request]);
+            // await stream.sink([request]);
+
+            const lp = lpStream(stream)
+
+            // send the query
+            await lp.write(request)
         
             // Read the response
             let response = '';

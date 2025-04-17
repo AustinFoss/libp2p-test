@@ -170,7 +170,7 @@ pub async fn init_libp2p(_local_key: Keypair, _webrtc_cert: webrtc::tokio::certi
                 if let BehaviourEvent::Reqres(Event::Message {
                     ..
                 }) = &event {
-                    println!("P@P HTTP!!!");
+                    println!("REQ  RES");
                 }
 
                 if let BehaviourEvent::Reqres(Event::InboundFailure {
