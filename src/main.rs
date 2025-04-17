@@ -67,7 +67,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     println!("Peer ID: {}", peer_id);
 
     // Initilize the libp2p node
-    init_libp2p(local_key, certificate, opt.port).await?;
+    init_libp2p(local_key, certificate, 0).await?;
 
     Ok(())
    
@@ -86,5 +86,5 @@ struct Opt {
 
     /// The port used to listen on all interfaces
     #[arg(long)]
-    port: u16,
+    port: Option<u16>,
 }
