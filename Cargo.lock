@@ -2139,7 +2139,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libp2p-webrtc-cert-expirey"
+name = "libp2p-test"
 version = "0.1.0"
 dependencies = [
  "clap",
